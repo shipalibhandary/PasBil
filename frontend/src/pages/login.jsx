@@ -1,4 +1,13 @@
+import { useState } from "react";
+import billing from "./Billing";
+
 function Login(){
+    const [loggedIn, setLoggedIn]= useState(false);
+
+    if(loggedIn){
+        return <billing/>;
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-grey-100">
             <div className="w-full max-w-md bg-pink-100 rounded-xl shadow-lg p-8">
