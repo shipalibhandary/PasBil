@@ -1,11 +1,11 @@
 import { useState } from "react";
-import billing from "./Billing";
+import Billing from "./Billing";
 
 function Login(){
     const [loggedIn, setLoggedIn]= useState(false);
 
     if(loggedIn){
-        return <billing/>;
+        return <Billing/>;
     }
 
     return (
