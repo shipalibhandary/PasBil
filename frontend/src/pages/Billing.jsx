@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function Billing() {
     const products=[
         {id:1,name:"Mini Donut",price:40,unit:"piece"},
@@ -18,6 +20,44 @@ function Billing() {
 
         
     ];
+
+    const [billItems,setBillitems]=useState([]);
+
+    if (existing) {
+      setBillItems(
+        billItems.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setBillItems([
+        ...billItems,
+        {
+          ...product,
+          quantity: product.unit === "kg" ? 0.5 : 1,
+        },
+      ]);
+    }
+  };
+
+  const updateQuantity = (id, value) => {
+    setBillItems(
+      billItems.map((item) =>
+        item.id === id ? { ...item, quantity: value } : item
+      )
+    );
+  };
+
+  const removeItem = (id) => {
+    setBillItems(billItems.filter((item) => item.id !== id));
+  };
+
+  const totalAmount = billItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
