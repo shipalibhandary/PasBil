@@ -65,7 +65,7 @@ function Billing() {
             <div className="grid grid-cols-3 gap-6">
 
                 {/* Product List */}
-                <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
+                <div className="bg-white rounded-lg shadow p-4">
                     <h2 className="font-semibold text-lg mb-4">Products</h2>
 
                     <div className="space-y-3">
@@ -83,8 +83,8 @@ function Billing() {
                 </div>
 
                 {/* Bill Table */}
-        <div className="bg-white rounded-lg shadow p-4 col-span-2">
-          <h2 className="font-semibold text-lg mb-4">Current Bill</h2>
+        <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
+          <h2 className="font-semibold text-lg mb-4 text-pink-400">Current Bill</h2>
 
           {billItems.length === 0 ? (
             <p className="text-sm text-gray-500"> No items added to bill </p>
