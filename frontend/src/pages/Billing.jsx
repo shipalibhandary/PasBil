@@ -84,14 +84,14 @@ function Billing() {
 
                 {/* Bill Table */}
         <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
-          <h2 className="font-semibold text-lg mb-4 text-pink-400">Current Bill</h2>
+          <h2 className="font-semibold text-lg mb-4 text-pink-700">Current Bill</h2>
 
           {billItems.length === 0 ? (
             <p className="text-sm text-gray-500"> No items added to bill </p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b">
+                <tr className="border-b bg-pink-50 text-pink-700">
                   <th className="text-left py-2">Item</th>
                   <th className="text-left">Qty</th>
                   <th className="text-left">Price</th>
