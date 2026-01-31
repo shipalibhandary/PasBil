@@ -17,11 +17,11 @@ function Billing() {
         {id:11,name:"Black Forest Cake",price:500,unit:"kg"},
         {id:12,name:"Butterscotch Cake",price:400,unit:"kg"},
         {id:13,name:"White Forest Cake",price:450,unit:"kg"},
-
-        
     ];
 
     const [billItems,setBillitems]=useState([]);
+    const addToBill = (product) => {
+    const existing = billItems.find((item) => item.id === product.id);
 
     if (existing) {
       setBillItems(
@@ -76,17 +76,73 @@ function Billing() {
                                     <p className="text-sm text-gray-500">Rs {product.price}</p>
                                 </div>
 
-                                <button className="bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600 tr">Add</button>
+                                <button onClick={() => addToBill(product)} className="bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600 tr">Add</button>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow p-4 col-span-2">
-                    <h2 className="font-semibold mb-4">Current Bill</h2>
-                    <p className="text-sm text-gray-500">selected items will appear here</p>
-                </div>
-            </div>
+                {/* Bill Table */}
+        <div className="bg-white rounded-lg shadow p-4 col-span-2">
+          <h2 className="font-semibold text-lg mb-4">Current Bill</h2>
+
+          {billItems.length === 0 ? (
+            <p className="text-sm text-gray-500"> No items added to bill </p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b">
+                  <th className="text-left py-2">Item</th>
+                  <th className="text-left">Qty</th>
+                  <th className="text-left">Price</th>
+                  <th className="text-left">Amount</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {billItems.map((item) => (
+                  <tr key={item.id} className="border-b">
+                    <td className="py-2">{item.name}</td>
+
+                    <td>
+                      <input
+                        type="number"
+                        step={item.unit === "kg" ? "0.1" : "1"}
+                        min={item.unit === "kg" ? "0.1" : "1"}
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateQuantity(item.id, Number(e.target.value))
+                        }
+                        className="w-20 border rounded px-2 py-1"
+                      />
+                      <span className="ml-1 text-xs">{item.unit}</span>
+                    </td>
+
+                    <td>₹{item.price}</td>
+
+                    <td>
+                      ₹{(item.price * item.quantity).toFixed(2)}
+                    </td>
+
+                    <td>
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="text-red-500 text-sm"> Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          {/* Total */}
+          <div className="text-right mt-4 font-bold text-lg">
+            Total: ₹{totalAmount.toFixed(2)}
+          </div>
+        </div>
+      </div>
         </div>
     );
 }
