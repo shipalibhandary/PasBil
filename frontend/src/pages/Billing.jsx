@@ -19,7 +19,7 @@ function Billing() {
         {id:13,name:"White Forest Cake",price:450,unit:"kg"},
     ];
 
-    const [billItems,setBillitems]=useState([]);
+    const [billItems,setBillItems]=useState([]);
     const addToBill = (product) => {
     const existing = billItems.find((item) => item.id === product.id);
 
@@ -65,7 +65,7 @@ function Billing() {
             <div className="grid grid-cols-3 gap-6">
 
                 {/* Product List */}
-                <div className="bg-white rounded-lg shadow p-4">
+                <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
                     <h2 className="font-semibold text-lg mb-4">Products</h2>
 
                     <div className="space-y-3">
