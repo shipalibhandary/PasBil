@@ -64,7 +64,7 @@ function Billing() {
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Pastry Shop Billing</h1>
             <div className="grid grid-cols-3 gap-6">
 
-                {/* Product List */}
+                {/* this is Product List */}
                 <div className="bg-white rounded-lg shadow p-4">
                     <h2 className="font-semibold text-lg mb-4">Products</h2>
 
