@@ -137,7 +137,7 @@ function Billing() {
             </table>
           )}
 
-          {/* Total */}
+          {/* Total part*/}
           <div className="text-right mt-4 font-bold text-lg">
             Total: ₹{totalAmount.toFixed(2)}
           </div>
