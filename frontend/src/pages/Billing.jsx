@@ -82,7 +82,7 @@ function Billing() {
                     </div>
                 </div>
 
-                {/* Bill Table */}
+                {/* this is Bill Table */}
         <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
           <h2 className="font-semibold text-lg mb-4 text-pink-700">Current Bill</h2>
 
