@@ -20,6 +20,9 @@ function Billing() {
     ];
 
     const [billItems,setBillItems]=useState([]);
+    const [savedBills, setsavedBills]=useState([]);
+    const[message,setMessage]=useState("");
+    
     const addToBill = (product) => {
     const existing = billItems.find((item) => item.id === product.id);
 
@@ -43,6 +46,7 @@ function Billing() {
   };
 
   const updateQuantity = (id, value) => {
+    const safe=Number.isFinite(value)?value:0;
     setBillItems(
       billItems.map((item) =>
         item.id === id ? { ...item, quantity: value } : item
@@ -50,20 +54,47 @@ function Billing() {
     );
   };
 
-  const removeItem = (id) => {
-    setBillItems(billItems.filter((item) => item.id !== id));
+  const removeItem = (id) =>  setBillItems(billItems.filter((item) => item.id !== id));
+  const clearBill=()=>setBillItems([]);
+
+  const totalAmount =useMemo(
+    () => billItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [billItems]
+  );
+  // ✅ Save Bill (frontend only)
+  const saveBill = () => {
+    if (billItems.length === 0) {
+      setMessage(" Add items before saving.");
+      setTimeout(() => setMessage(""), 2000);
+      return;
+    }
+
+    const newBill = {
+      billId: Date.now(), // temporary bill id
+      date: new Date().toLocaleString(),
+      items: billItems,
+      total: Number(totalAmount.toFixed(2)),
+    };
+
+    setSavedBills([newBill, ...savedBills]); // save latest on top
+    setBillItems([]); // clear current bill
+    setMessage("✅ Bill saved successfully!");
+
+    setTimeout(() => setMessage(""), 2000);
   };
 
-  const totalAmount = billItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Pastry Shop Billing</h1>
             <div className="grid grid-cols-3 gap-6">
 
+                {/* ✅ Message */}
+                {message && (
+                  <div className="mb-4 p-3 rounded-lg bg-green-100 text-green-800 font-medium">
+                    {message}
+                  </div>
+                )}
                 {/* this is Product List */}
                 <div className="bg-white rounded-lg shadow p-4">
                     <h2 className="font-semibold text-lg mb-4">Products</h2>
