@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useMemo,useState } from "react";
+
 
 function Billing() {
     const products=[
@@ -57,11 +58,11 @@ function Billing() {
   const removeItem = (id) =>  setBillItems(billItems.filter((item) => item.id !== id));
   const clearBill=()=>setBillItems([]);
 
-  const totalAmount =useMemo(
-    () => billItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
-    [billItems]
-  );
-  // ✅ Save Bill (frontend only)
+  const totalAmount =useMemo(() => {
+    return billItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+   }, [billItems]);
+ 
+   // ✅ Save Bill (frontend only)
   const saveBill = () => {
     if (billItems.length === 0) {
       setMessage(" Add items before saving.");
@@ -95,7 +96,7 @@ function Billing() {
                     {message}
                   </div>
                 )}
-                {/* this is Product List */}
+                {/*  Product List */}
                 <div className="bg-white rounded-lg shadow p-4">
                     <h2 className="font-semibold text-lg mb-4">Products</h2>
 
@@ -113,68 +114,84 @@ function Billing() {
                     </div>
                 </div>
 
-                {/* this is Bill Table */}
-        <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
-          <h2 className="font-semibold text-lg mb-4 text-pink-700">Current Bill</h2>
+                {/* Current Bill */}
+                <div className="bg-white rounded-lg shadow p-4 col-span-2 border-l-4 border-pink-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="font-semibold text-lg text-pink-700">Current Bill</h2>
 
-          {billItems.length === 0 ? (
-            <p className="text-sm text-gray-500"> No items added to bill </p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-pink-50 text-pink-700">
-                  <th className="text-left py-2">Item</th>
-                  <th className="text-left">Qty</th>
-                  <th className="text-left">Price</th>
-                  <th className="text-left">Amount</th>
-                  <th></th>
-                </tr>
-              </thead>
+                    <button
+                      onClick={clearBill}
+                      className="text-sm text-gray-600 hover:text-gray-900">Clear</button>
+                  </div>
+                  {billItems.length === 0 ? (
+                    <p className="text-sm text-gray-500"> No items added to bill </p>
+                  ) : (
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b bg-pink-50 text-pink-700">
+                          <th className="text-left py-2">Item</th>
+                          <th className="text-left">Qty</th>
+                          <th className="text-left">Price</th>
+                          <th className="text-left">Amount</th>
+                          <th></th>
+                        </tr>
+                      </thead>
 
-              <tbody>
-                {billItems.map((item) => (
-                  <tr key={item.id} className="border-b">
-                    <td className="py-2">{item.name}</td>
+                      <tbody>
+                        {billItems.map((item) => (
+                          <tr key={item.id} className="border-b">
+                            <td className="py-2">{item.name}</td>
 
-                    <td>
-                      <input
-                        type="number"
-                        step={item.unit === "kg" ? "0.1" : "1"}
-                        min={item.unit === "kg" ? "0.1" : "1"}
-                        value={item.quantity}
-                        onChange={(e) =>
-                          updateQuantity(item.id, Number(e.target.value))
-                        }
-                        className="w-20 border rounded px-2 py-1"
-                      />
-                      <span className="ml-1 text-xs">{item.unit}</span>
-                    </td>
+                            <td>
+                              <input
+                                type="number"
+                                step={item.unit === "kg" ? "0.1" : "1"}
+                                min={item.unit === "kg" ? "0.1" : "1"}
+                                value={item.quantity}
+                                onChange={(e) =>
+                                  updateQuantity(item.id, Number(e.target.value))
+                                }
+                                className="w-20 border rounded px-2 py-1"
+                              />
+                              <span className="ml-1 text-xs">{item.unit=="piece"?"pcs":"kg"}</span>
+                            </td>
 
-                    <td>₹{item.price}</td>
+                            <td>₹{item.price}</td>
 
-                    <td>
-                      ₹{(item.price * item.quantity).toFixed(2)}
-                    </td>
+                            <td>
+                              ₹{(item.price * item.quantity).toFixed(2)}
+                            </td>
 
-                    <td>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-red-500 text-sm"> Remove
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+                            <td>
+                              <button
+                                onClick={() => removeItem(item.id)}
+                                className="text-red-500 text-sm"> Remove
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
             </table>
           )}
 
-          {/* Total part*/}
-          <div className="text-right mt-4 font-bold text-lg">
-            Total: ₹{totalAmount.toFixed(2)}
-          </div>
+           {/* Total + Save Bill */}
+          <div className="flex items-center justify-between mt-4 gap-4">
+            <div className="p-3 bg-pink-100 rounded-lg font-bold text-lg text-pink-700">
+              Total: ₹{totalAmount.toFixed(2)}
+            </div>
+
+            <button
+              onClick={saveBill}
+              className="bg-green-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-700">Save Bill
+            </button>
         </div>
+        {/* Saved bill count (optional) */}
+          <p className="text-xs text-gray-500 mt-3">
+            Saved bills (session): {savedBills.length}
+          </p>
       </div>
-        </div>
-    );
+    </div>
+  </div>
+  );
 }
 export default Billing;
