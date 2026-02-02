@@ -182,7 +182,7 @@ function Billing() {
 
             <button
               onClick={saveBill}
-              className="bg-green-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-700">Save Bill
+              className="bg-pink-500 text-white px-3 py-1 rounded-lg">Save Bill
             </button>
         </div>
         {/* Saved bill count (optional) */}
