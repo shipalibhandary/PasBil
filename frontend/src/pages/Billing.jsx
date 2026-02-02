@@ -21,7 +21,7 @@ function Billing() {
     ];
 
     const [billItems,setBillItems]=useState([]);
-    const [savedBills, setsavedBills]=useState([]);
+    const [savedBills, setSavedBills]=useState([]);
     const[message,setMessage]=useState("");
     
     const addToBill = (product) => {
