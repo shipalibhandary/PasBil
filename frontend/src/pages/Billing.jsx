@@ -1,24 +1,8 @@
 import { useMemo,useState } from "react";
 
 
-function Billing() {
-    const products=[
-        {id:1,name:"Mini Donut",price:40,unit:"piece"},
-        {id:2,name:"cream filled Donut",price:60,unit:"piece"},
-
-        {id:3,name:"Cupcake",price:40,unit:"piece"},
-        {id:4,name:"Vanilla Cupcake",price:50,unit:"piece"},
-        {id:5,name:"Chocolate Cupcake",price:60,unit:"piece"},
-        {id:6,name:"Oreo Cupcake",price:70,unit:"piece"},
-
-        {id:7,name:"Strawberry Cake",price:450,unit:"kg"},
-        {id:8,name:"Red Velvet Cake",price:500,unit:"kg"},
-        {id:9,name:"Fruit overload cake",price:500,unit:"kg"},
-        {id:10,name:"Chocolate Cake",price:450,unit:"kg"},
-        {id:11,name:"Black Forest Cake",price:500,unit:"kg"},
-        {id:12,name:"Butterscotch Cake",price:400,unit:"kg"},
-        {id:13,name:"White Forest Cake",price:450,unit:"kg"},
-    ];
+function Billing({ go, products }) {
+    
 
     const [billItems,setBillItems]=useState([]);
     const [savedBills, setSavedBills]=useState([]);
