@@ -36,11 +36,11 @@ function AddItems({ go, products, setProducts }) {
       </div>
 
       {/* Form */}
-      <form onSubmit={addProduct} className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+      <form onSubmit={addProduct} className="grid grid-cols-1 gap-4">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border rounded-lg px-3 py-2 sm:col-span-2"
+          className="border rounded-lg px-3 py-2 "
           placeholder="Item name (e.g., Chocolate Cake)"
         />
 
@@ -63,14 +63,13 @@ function AddItems({ go, products, setProducts }) {
 
         <button
           type="submit"
-          className="sm:col-span-4 bg-pink-600 text-white rounded-lg py-2 font-semibold hover:bg-pink-700"
-        >
-          Add Item
+          className="sm:col-span-1 bg-pink-600 text-white rounded-lg py-2 font-semibold hover:bg-pink-700"
+        >Add Item
         </button>
       </form>
 
       {/* List */}
-      <div className="mt-6">
+      <div className="mt-6 bg-pink-50">
         <h3 className="font-semibold text-gray-800 mb-2">Added Items</h3>
 
         {products.length === 0 ? (
@@ -93,7 +92,7 @@ function AddItems({ go, products, setProducts }) {
 
       <button
         onClick={() => go("dashboard")}
-        className="mt-6 text-sm text-gray-600 hover:underline"
+        className="mt-6 text-sm text-black-500 hover:underline"
       >
         ← Back to Dashboard
       </button>

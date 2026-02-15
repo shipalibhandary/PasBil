@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import AddItems from "./AddItems";
 import Billing from "./Billing";
@@ -6,8 +6,15 @@ import Billing from "./Billing";
 function AppShell() {
   const [page, setPage] = useState("dashboard");
 
-  // ✅ Products live here (single source of truth)
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(() => {
+  const saved = localStorage.getItem("pastry_products");
+  return saved ? JSON.parse(saved) : [];
+});
+
+
+  useEffect(() => {
+    localStorage.setItem("pastry_products", JSON.stringify(products));
+  }, [products]);
 
   return (
     <div className="min-h-screen bg-gray-100">
