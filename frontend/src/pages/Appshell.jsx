@@ -6,15 +6,22 @@ import Billing from "./Billing";
 function AppShell() {
   const [page, setPage] = useState("dashboard");
 
-  const [products, setProducts] = useState(() => {
-  const saved = localStorage.getItem("pastry_products");
-  return saved ? JSON.parse(saved) : [];
-});
+  const [products, setProducts] = useState([]);
+  const fetchProducts=async()=>{
+    
+    try{
+      const res=await fetch("http://localhost:5000/api/products");
+      const data=await res.json();
+      setProducts(data);
+    }catch(err){
+      console.error("Error fetching products",err);
+    }
+  };
 
 
   useEffect(() => {
-    localStorage.setItem("pastry_products", JSON.stringify(products));
-  }, [products]);
+    fetchProducts();
+  },[]);
 
   return (
     <div className="min-h-screen bg-gray-100">
