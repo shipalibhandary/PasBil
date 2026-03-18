@@ -24,6 +24,16 @@ function Dashboard({ go }) {
             Create bill using added items
           </p>
         </button>
+
+        <button
+          onClick={() => go("history")}
+          className="p-6 rounded-xl border bg-yellow-50 hover:bg-yellow-100 text-left"
+        >
+          <p className="text-lg font-semibold text-yellow-700">Bills History</p>
+          <p className="text-sm text-gray-600 mt-1">
+            View previously saved bills
+          </p>
+        </button>
       </div>
     </div>
   );
