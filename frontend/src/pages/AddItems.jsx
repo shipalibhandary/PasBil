@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddItems({ go, products, setProducts }) {
+function AddItems({ go, fetchProducts}) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [unit, setUnit] = useState("piece");
