@@ -29,12 +29,15 @@ function AppShell() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Top bar */}
-      <div className="bg-white border-b">
+      <div className="bg-white border-b shadow-sm">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="font-bold text-lg text-gray-800">Pastry Shop System</h1>
+          <h1 className="font-bold text-2xl text-gray-900 tracking-wide">Pastry Shop System</h1>
+          
+          {/* Home Button */}
           <button
             onClick={() => setPage("dashboard")}
-            className="text-sm text-pink-600 font-semibold hover:underline"
+            className="px-5 py-2 rounded-lg border border-pink-500 text-pink-600 font-semibold 
+                 hover:bg-pink-500 hover:text-white transition duration-200"
           >
             Home
           </button>
