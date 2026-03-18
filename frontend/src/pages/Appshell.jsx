@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import AddItems from "./AddItems";
 import Billing from "./Billing";
+import BillsHistory from "./BillsHistory";
+import BillDetails from "./BillDetails";  
 
 function AppShell() {
   const [page, setPage] = useState("dashboard");
   const [products, setProducts] = useState([]);
+  const [selectedBillId, setSelectedBillId] = useState(null);
 
   const fetchProducts=async()=>{
     
@@ -53,6 +56,20 @@ function AppShell() {
           <Billing go={setPage} products={products} />
         )}
       </div>
+
+      {page === "history" && (
+        <BillsHistory 
+          go={setPage}
+          setSelectedBillId={setSelectedBillId}
+        />
+      )}
+
+      {page== "billDetails" && (
+        <BillDetails 
+          billId={selectedBillId}
+          go={setPage}
+        />
+      )}
     </div>
   );
 }

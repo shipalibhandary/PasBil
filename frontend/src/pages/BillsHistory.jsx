@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function BillsHistory({ go }) {
+function BillsHistory({ go,setSelectedBillId }) {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +48,10 @@ function BillsHistory({ go }) {
             </thead>
             <tbody>
               {bills.map((bill) => (
-                <tr key={bill.id} className="border-t hover:bg-gray-50">
+                <tr key={bill.id} className="border-t hover:bg-gray-50 cursor-pointer" onClick={() => {
+                  setSelectedBillId(bill.id);
+                  go("billDetails");
+                }}>
                   <td className="px-4 py-3">{bill.id}</td>
                   <td className="px-4 py-3">
                     {new Date(bill.bill_date).toLocaleString()}
