@@ -5,23 +5,40 @@ function AddItems({ go, products, setProducts }) {
   const [price, setPrice] = useState("");
   const [unit, setUnit] = useState("piece");
 
-  const addProduct = (e) => {
+  const addProduct = async (e) => {
     e.preventDefault();
 
     if (!name.trim() || !price) return;
 
-    const newProduct = {
-      id: Date.now(),
-      name: name.trim(),
-      price: Number(price),
-      unit,
-    };
+    try {
+      const res = await fetch("http://localhost:5000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          price: Number(price),
+          unit,
+        }),
+    });
+    if (!res.ok) {
+      alert("Error saving product");
+      return;
+    }
 
-    setProducts([newProduct, ...products]);
+    // Clear form
     setName("");
     setPrice("");
     setUnit("piece");
-  };
+
+    // Refresh product list
+    fetchProducts();
+
+  } catch (err) {
+    console.error("Error:", err);
+  }
+};
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
