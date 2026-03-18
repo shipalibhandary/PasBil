@@ -37,25 +37,31 @@ app.get("/api/products", async (req, res) => {
 
 // Add product
 app.post("/api/products", async (req, res) => {
-  const { name, price, unit } = req.body;
+  try{
+    const { name, price, unit } = req.body;
 
-  if (!name || typeof name !== "string") {
-    return res.status(400).json({ message: "name is required" });
-  }
-  if (typeof price !== "number") {
-    return res.status(400).json({ message: "price must be a number" });
-  }
-  if (!["kg", "piece"].includes(unit)) {
-    return res.status(400).json({ message: "unit must be 'kg' or 'piece'" });
-  }
+    if (!name || typeof name !== "string") {
+      return res.status(400).json({ message: "name is required" });
+    }
+    if (typeof price !== "number") {
+      return res.status(400).json({ message: "price must be a number" });
+    }
+    if (!["kg", "piece"].includes(unit)) {
+      return res.status(400).json({ message: "unit must be 'kg' or 'piece'" });
+    }
 
-  const [result] = await pool.query(
-    "INSERT INTO products (name, price, unit) VALUES (?, ?, ?)",
-    [name.trim(), price, unit]
-  );
+    const [result] = await pool.query(
+      "INSERT INTO products (name, price, unit) VALUES (?, ?, ?)",
+      [name.trim(), price, unit]
+    );
 
-  res.status(201).json({ id: result.insertId, name: name.trim(), price, unit });
+    res.status(201).json({ id: result.insertId, name: name.trim(), price, unit });
+  }catch(e){
+    console.error("products API error:", e.message);
+    res.status(500).json({ message: e.message });
+  }
 });
+
 
 //
 // BILLS

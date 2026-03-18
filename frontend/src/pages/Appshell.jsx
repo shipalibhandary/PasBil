@@ -6,7 +6,7 @@ import Billing from "./Billing";
 function AppShell() {
   const [page, setPage] = useState("dashboard");
   const [products, setProducts] = useState([]);
-  
+
   const fetchProducts=async()=>{
     
     try{
@@ -44,8 +44,8 @@ function AppShell() {
         {page === "add" && (
           <AddItems
             go={setPage}
+            fetchProducts={fetchProducts}
             products={products}
-            setProducts={setProducts}
           />
         )}
 

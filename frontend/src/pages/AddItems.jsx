@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddItems({ go, fetchProducts}) {
+function AddItems({ go, fetchProducts, products }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [unit, setUnit] = useState("piece");
@@ -21,24 +21,24 @@ function AddItems({ go, fetchProducts}) {
           price: Number(price),
           unit,
         }),
-    });
-    if (!res.ok) {
-      alert("Error saving product");
-      return;
+      });
+
+      if (!res.ok) {
+        alert("Error saving product");
+        return;
+      }
+
+      // Clear form
+      setName("");
+      setPrice("");
+      setUnit("piece");
+
+      // Refresh product list
+      fetchProducts();
+    } catch (err) {
+      console.error("Error:", err);
     }
-
-    // Clear form
-    setName("");
-    setPrice("");
-    setUnit("piece");
-
-    // Refresh product list
-    fetchProducts();
-
-  } catch (err) {
-    console.error("Error:", err);
-  }
-};
+  };
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
@@ -57,7 +57,7 @@ function AddItems({ go, fetchProducts}) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border rounded-lg px-3 py-2 "
+          className="border rounded-lg px-3 py-2"
           placeholder="Item name (e.g., Chocolate Cake)"
         />
 
@@ -80,13 +80,14 @@ function AddItems({ go, fetchProducts}) {
 
         <button
           type="submit"
-          className="sm:col-span-1 bg-pink-600 text-white rounded-lg py-2 font-semibold hover:bg-pink-700"
-        >Add Item
+          className="bg-pink-600 text-white rounded-lg py-2 font-semibold hover:bg-pink-700"
+        >
+          Add Item
         </button>
       </form>
 
       {/* List */}
-      <div className="mt-6 bg-pink-50">
+      <div className="mt-6 bg-pink-50 p-4 rounded-lg">
         <h3 className="font-semibold text-gray-800 mb-2">Added Items</h3>
 
         {products.length === 0 ? (
@@ -94,7 +95,10 @@ function AddItems({ go, fetchProducts}) {
         ) : (
           <div className="space-y-2">
             {products.map((p) => (
-              <div key={p.id} className="border rounded-lg p-3 flex justify-between">
+              <div
+                key={p.id}
+                className="border rounded-lg p-3 flex justify-between bg-white"
+              >
                 <div>
                   <p className="font-medium">{p.name}</p>
                   <p className="text-sm text-gray-500">
@@ -109,7 +113,7 @@ function AddItems({ go, fetchProducts}) {
 
       <button
         onClick={() => go("dashboard")}
-        className="mt-6 text-sm text-black-500 hover:underline"
+        className="mt-6 text-sm text-gray-700 hover:underline"
       >
         ← Back to Dashboard
       </button>
