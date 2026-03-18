@@ -46,26 +46,49 @@ function Billing({ go, products }) {
     return billItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
    }, [billItems]);
  
-   // ✅ Save Bill (frontend only)
-  const saveBill = () => {
+   // ✅ Save Bill 
+  const saveBill = async () => {
     if (billItems.length === 0) {
-      setMessage(" Add items before saving.");
+      setMessage("⚠️ Add items before saving.");
       setTimeout(() => setMessage(""), 2000);
       return;
     }
 
-    const newBill = {
-      billId: Date.now(), // temporary bill id
-      date: new Date().toLocaleString(),
-      items: billItems,
-      total: Number(totalAmount.toFixed(2)),
+    const payload = {
+      items: billItems.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalAmount: Number(totalAmount.toFixed(2)),
     };
 
-    setSavedBills([newBill, ...savedBills]); // save latest on top
-    setBillItems([]); // clear current bill
-    setMessage("✅ Bill saved successfully!");
+    try {
+      const res = await fetch("http://localhost:5000/api/bills", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    setTimeout(() => setMessage(""), 2000);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMessage("❌ Failed to save bill.");
+        console.error(data);
+        setTimeout(() => setMessage(""), 2000);
+        return;
+      }
+
+      setBillItems([]);
+      setMessage("✅ Bill saved successfully!");
+      setTimeout(() => setMessage(""), 2000);
+    } catch (err) {
+      console.error("Error saving bill:", err);
+      setMessage("❌ Error saving bill.");
+      setTimeout(() => setMessage(""), 2000);
+    }
   };
 
 
