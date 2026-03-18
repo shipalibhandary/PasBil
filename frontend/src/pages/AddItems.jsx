@@ -113,7 +113,8 @@ function AddItems({ go, fetchProducts, products }) {
 
       <button
         onClick={() => go("dashboard")}
-        className="mt-6 text-sm text-gray-700 hover:underline"
+        className="px-5 py-2 rounded-lg border border-pink-500 text-pink-600 font-semibold 
+                 hover:bg-pink-500 hover:text-white transition duration-200"
       >
         ← Back to Dashboard
       </button>
