@@ -24,7 +24,19 @@ function Login({onLogin}){
                         <input type="text" placeholder="Enter password" className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 "/>
                     </div>
                     
-                    <button type="button" onClick={() =>onLogin() } className="w-full bg-pink-500 text-white py-2 rounded-lg font-semibold hover:bg-pink-600 transition">Login</button>
+                    <button type="button" 
+                        onClick={() =>onLogin() } 
+                        className="w-full bg-pink-500 text-white py-2 rounded-lg font-semibold hover:bg-pink-600 transition"
+                        >Login
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => go("register")}
+                        className="w-full mt-2 border border-pink-500 text-pink-600 py-2 rounded-lg"
+                        >
+                        Register
+                    </button>
                 </form>
 
                 <p className="text-xs text-center text-gray-500 mt-4">© 2026 Pastry Shop Billing System</p>
