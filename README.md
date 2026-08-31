@@ -32,12 +32,12 @@ A full-stack pastry billing system built to simplify billing and order managemen
 
 ## 🖥️ Application Flow
 
-User<br>
- &nbsp; ↓<br>
-React Frontend<br>
-  ↓<br>
-REST API<br>
-  ↓<br>
-Node.js + Express Backend<br>
-  ↓<br>
-MySQL Database
+&nbsp;User<br>
+&nbsp; &nbsp; ↓<br>
+&nbsp;React Frontend<br>
+ &nbsp; &nbsp; ↓<br>
+&nbsp; REST API<br>
+ &nbsp; &nbsp; ↓<br>
+&nbsp;Node.js + Express Backend<br>
+ &nbsp; &nbsp; ↓<br>
+&nbsp;MySQL Database
