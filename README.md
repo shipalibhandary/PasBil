@@ -29,3 +29,15 @@ A full-stack pastry billing system built to simplify billing and order managemen
 - Git & GitHub
 - VS Code
 - Postman
+
+## 🖥️ Application Flow
+
+User<br>
+  ↓<br>
+React Frontend<br>
+  ↓<br>
+REST API<br>
+  ↓<br>
+Node.js + Express Backend<br>
+  ↓<br>
+MySQL Database
