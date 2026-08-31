@@ -10,3 +10,22 @@ A full-stack pastry billing system built to simplify billing and order managemen
 - REST API integration between frontend and backend
 - Responsive and user-friendly interface
 - Fast development setup using React and Vite
+
+## 🛠️ Tech Stack
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- JavaScript (ES6+)
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MySQL
+
+### Tools
+- Git & GitHub
+- VS Code
+- Postman
