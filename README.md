@@ -33,7 +33,7 @@ A full-stack pastry billing system built to simplify billing and order managemen
 ## 🖥️ Application Flow
 
 User<br>
-  ↓<br>
+ <t> ↓<br>
 React Frontend<br>
   ↓<br>
 REST API<br>
